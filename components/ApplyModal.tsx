@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { trackTaskApply } from "@/lib/tracking";
 
 interface ApplyModalProps {
   taskId: string;
@@ -45,6 +46,7 @@ export default function ApplyModal({ taskId, taskTitle, isEn, prefix = "", onClo
       const data = await res.json();
 
       if (data.success) {
+        trackTaskApply(taskId, taskTitle);
         setConfirmedName(data.name || "");
         setDone(true);
       } else if (data.error === "not_registered") {

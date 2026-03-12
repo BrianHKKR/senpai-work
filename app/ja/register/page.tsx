@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackRegistration } from "@/lib/tracking";
 
 interface FormData {
   name: string;
@@ -94,6 +95,7 @@ export default function RegisterPage() {
         body: JSON.stringify(form),
       });
       if (res.ok) {
+        trackRegistration(form.prefecture);
         setSubmitted(true);
       } else {
         setError("登録に失敗しました。もう一度お試しください。");
@@ -262,7 +264,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              前職の会社名
+              代表的なご勤務先
             </label>
             <input
               type="text"
