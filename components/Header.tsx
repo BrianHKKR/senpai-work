@@ -8,7 +8,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isEn = pathname.startsWith("/en");
-  const prefix = isEn ? "/en" : "";
+  const isJa = pathname.startsWith("/ja");
+  const prefix = isEn ? "/en" : isJa ? "/ja" : "";
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-white/95 backdrop-blur">

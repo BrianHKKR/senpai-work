@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ApplyModal from "@/components/ApplyModal";
 
 interface Task {
   id: string;
@@ -31,6 +32,7 @@ const statusLabels: Record<string, { label: string; color: string }> = {
 export default function TasksPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [applyTask, setApplyTask] = useState<Task | null>(null);
 
   useEffect(() => {
     fetch("/api/tasks?lang=ja")
@@ -87,15 +89,25 @@ export default function TasksPage() {
                   </p>
                 )}
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                  {task.date && (
-                    <span className="text-sm text-[var(--color-text-light)]">
-                      希望日: {task.date}
-                    </span>
-                  )}
-                  {task.reward && (
-                    <span className="text-xl font-bold text-[var(--color-accent)]">
-                      {task.reward}
-                    </span>
+                  <div className="flex flex-wrap items-center gap-4">
+                    {task.date && (
+                      <span className="text-sm text-[var(--color-text-light)]">
+                        希望日: {task.date}
+                      </span>
+                    )}
+                    {task.reward && (
+                      <span className="text-xl font-bold text-[var(--color-accent)]">
+                        {task.reward}
+                      </span>
+                    )}
+                  </div>
+                  {task.status === "open" && (
+                    <button
+                      onClick={() => setApplyTask(task)}
+                      className="rounded-lg bg-[var(--color-accent)] px-5 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                    >
+                      応募する
+                    </button>
                   )}
                 </div>
               </div>
@@ -115,6 +127,13 @@ export default function TasksPage() {
           先輩として登録する
         </Link>
       </div>
+      {applyTask && (
+        <ApplyModal
+          taskId={applyTask.id}
+          taskTitle={applyTask.title}
+          onClose={() => setApplyTask(null)}
+        />
+      )}
     </div>
   );
 }
