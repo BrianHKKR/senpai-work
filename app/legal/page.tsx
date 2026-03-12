@@ -8,7 +8,6 @@ export default function LegalPage() {
           <tbody className="divide-y divide-[var(--color-border)]">
             {[
               ["事業者名", "Mement Hong Kong Limited"],
-              ["代表者", "Choi Byung Chul（崔炳哲）"],
               ["所在地", "Central, Hong Kong SAR"],
               [
                 "連絡先",
