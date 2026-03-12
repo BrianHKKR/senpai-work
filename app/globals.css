@@ -21,4 +21,16 @@
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* Senior-friendly: larger tap targets on mobile */
+@media (max-width: 768px) {
+  button, a, input, select, textarea {
+    min-height: 48px;
+  }
+  input, select, textarea {
+    font-size: 18px !important;
+  }
 }
