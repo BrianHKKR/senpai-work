@@ -15,16 +15,38 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if phone is registered in Directors DB
-    const search = await notion.databases.query({
-      database_id: DIRECTORS_DB,
-      filter: {
-        property: "Phone",
-        phone_number: { equals: phone },
-      },
-    });
+    // Normalize phone: strip everything except digits
+    const digits = phone.replace(/[^0-9]/g, "");
 
-    if (search.results.length === 0) {
+    // Try matching with common formats: raw digits, with dashes (XXX-XXXX-XXXX)
+    const formats = [
+      phone,
+      digits,
+      digits.length === 11
+        ? `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`
+        : null,
+      digits.length === 10
+        ? `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`
+        : null,
+    ].filter((f): f is string => f !== null);
+
+    // Query Directors DB with each format until found
+    let director: any = null;
+    for (const fmt of [...new Set(formats)]) {
+      const search = await notion.databases.query({
+        database_id: DIRECTORS_DB,
+        filter: {
+          property: "Phone",
+          phone_number: { equals: fmt },
+        },
+      });
+      if (search.results.length > 0) {
+        director = search.results[0];
+        break;
+      }
+    }
+
+    if (!director) {
       return NextResponse.json(
         { success: false, error: "not_registered" },
         { status: 403 }
@@ -32,9 +54,8 @@ export async function POST(request: Request) {
     }
 
     // Get registered name from Directors DB
-    const director = search.results[0] as any;
     const registeredName =
-      director.properties["Name"]?.title?.[0]?.plain_text || name;
+      director.properties["Name"]?.title?.[0]?.plain_text || phone;
 
     // Get current applicants on the task
     const page = await notion.pages.retrieve({ page_id: taskId }) as any;
