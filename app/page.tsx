@@ -3,30 +3,30 @@ import Link from "next/link";
 const tiers = [
   {
     level: "T1",
-    title: "Document Support",
-    description: "Emergency contact registration, mail handling, government paperwork",
-    price: "¥5,000~¥8,000",
+    title: "書類サポート",
+    description: "緊急連絡先の登録、郵便物の受取、役所での書類取得",
+    price: "¥5,000〜¥8,000",
     icon: "📋",
   },
   {
     level: "T2",
-    title: "On-Site Agent",
-    description: "Property/factory inspections, on-site visits, photo reports",
-    price: "¥8,000~¥25,000",
+    title: "現場代行",
+    description: "物件・工場の現地確認、内見代行、写真撮影・レポート",
+    price: "¥8,000〜¥25,000",
     icon: "🏭",
   },
   {
     level: "T3",
-    title: "Negotiation",
-    description: "M&A owner meetings, real estate negotiations, contract witnessing",
-    price: "¥25,000~¥80,000",
+    title: "交渉・面談",
+    description: "M&Aオーナー面談、不動産仲介との交渉、契約立会い",
+    price: "¥25,000〜¥80,000",
     icon: "🤝",
   },
   {
     level: "T4",
-    title: "Director",
-    description: "Corporate officer registration, contract signing, bank account setup",
-    price: "Monthly retainer",
+    title: "ディレクター",
+    description: "法人役員登録、契約書署名、銀行口座開設の立会い",
+    price: "月額制・要相談",
     icon: "👔",
   },
 ];
@@ -34,23 +34,23 @@ const tiers = [
 const steps = [
   {
     num: "01",
-    title: "Register Task",
-    description: "Enter task details, location, and preferred dates",
+    title: "案件を登録",
+    description: "依頼内容・地域・希望日時を入力",
   },
   {
     num: "02",
-    title: "Match Senpai",
-    description: "We match you with a senior based on region and experience",
+    title: "先輩をマッチング",
+    description: "地域・経験に合った先輩をご紹介",
   },
   {
     num: "03",
-    title: "Execute & Report",
-    description: "Your senpai handles the task on-site and reports back",
+    title: "実行・報告",
+    description: "先輩が現地で実行し、結果を報告",
   },
   {
     num: "04",
-    title: "Payment via Wise",
-    description: "After confirmation, payment is sent via Wise",
+    title: "報酬お支払い",
+    description: "完了確認後、Wise経由で送金",
   },
 ];
 
@@ -67,27 +67,27 @@ export default function Home() {
             SENPAI.WORK
           </p>
           <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-            Hire Trusted Japanese Seniors
+            信頼できる先輩に、
             <br />
-            for On-the-Ground Business Operations
+            日本のビジネス実務を依頼
           </h1>
           <p className="mb-10 max-w-2xl text-xl leading-relaxed text-white/80">
-            Real estate, factory inspections, M&A negotiations —
+            不動産手続き、工場視察、交渉代行——
             <br />
-            experienced Japanese professionals become your hands on the ground.
+            経験豊富な日本のシニア人材が、あなたの「現地の手」になります。
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link
               href="/register"
               className="inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-8 py-4 text-lg font-bold text-white transition hover:bg-[var(--color-accent-light)]"
             >
-              Register as Senpai
+              先輩として登録する
             </Link>
             <Link
               href="/tasks"
               className="inline-flex items-center justify-center rounded-lg border-2 border-white/30 px-8 py-4 text-lg font-bold text-white transition hover:border-white/60"
             >
-              Browse Tasks
+              案件を見る
             </Link>
           </div>
         </div>
@@ -96,25 +96,25 @@ export default function Home() {
       {/* Why Senpai */}
       <section className="mx-auto max-w-5xl px-6 py-20">
         <h2 className="mb-4 text-center text-3xl font-bold">
-          Why &ldquo;Senpai&rdquo;?
+          なぜ「先輩」なのか
         </h2>
         <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-[var(--color-text-light)]">
-          Experienced professionals aged 50-70 bring the credibility and
-          execution power that business situations in Japan demand.
+          50代〜70代の経験豊富なシニアだからこそ、
+          ビジネスの現場で信頼される実行力があります。
         </p>
         <div className="grid gap-8 md:grid-cols-3">
           {[
             {
-              title: "Social Credibility",
-              desc: "Decades of career experience and track records earn trust from business partners and financial institutions.",
+              title: "社会的信用",
+              desc: "長年のキャリアと実績が、取引先や金融機関からの信頼を生みます。",
             },
             {
-              title: "Face-to-Face Negotiation",
-              desc: "In M&A and real estate situations, their communication skills put counterparts at ease.",
+              title: "対面交渉力",
+              desc: "M&Aや不動産の現場で、相手の警戒を解くコミュニケーション力。",
             },
             {
-              title: "Weekday Availability",
-              desc: "Available during business hours to visit government offices, banks, and real estate agents.",
+              title: "平日対応可能",
+              desc: "役所・銀行・仲介業者の営業時間に柔軟に対応できます。",
             },
           ].map((item) => (
             <div
@@ -134,7 +134,7 @@ export default function Home() {
       <section className="bg-[var(--color-bg-warm)] py-20">
         <div className="mx-auto max-w-5xl px-6">
           <h2 className="mb-12 text-center text-3xl font-bold">
-            Service Tiers
+            サービス内容
           </h2>
           <div className="grid gap-6 md:grid-cols-2">
             {tiers.map((tier) => (
@@ -165,7 +165,7 @@ export default function Home() {
 
       {/* How it works */}
       <section className="mx-auto max-w-5xl px-6 py-20">
-        <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
+        <h2 className="mb-12 text-center text-3xl font-bold">ご利用の流れ</h2>
         <div className="grid gap-8 md:grid-cols-4">
           {steps.map((step) => (
             <div key={step.num} className="text-center">
@@ -185,18 +185,18 @@ export default function Home() {
       <section className="bg-[var(--color-primary)] py-20 text-center text-white">
         <div className="mx-auto max-w-3xl px-6">
           <h2 className="mb-4 text-3xl font-bold">
-            Put your experience to work again
+            あなたの経験を、もう一度活かしませんか？
           </h2>
           <p className="mb-8 text-lg text-white/80">
-            Your skills and credibility from decades of work are needed in business situations right now.
+            退職後のスキルと信頼を、ビジネスの現場で必要としている方がいます。
             <br />
-            Per-task compensation. Work at your own pace.
+            案件ごとの報酬制。ご自身のペースで。
           </p>
           <Link
             href="/register"
             className="inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-10 py-4 text-xl font-bold text-white transition hover:bg-[var(--color-accent-light)]"
           >
-            Register as Senpai
+            先輩として登録する
           </Link>
         </div>
       </section>

@@ -23,10 +23,10 @@ const tierColors: Record<string, string> = {
 };
 
 const statusLabels: Record<string, { label: string; color: string }> = {
-  open: { label: "Open", color: "bg-green-500" },
-  in_progress: { label: "In Progress", color: "bg-yellow-500" },
-  completed: { label: "Completed", color: "bg-gray-400" },
-  cancelled: { label: "Cancelled", color: "bg-red-400" },
+  open: { label: "募集中", color: "bg-green-500" },
+  in_progress: { label: "進行中", color: "bg-yellow-500" },
+  completed: { label: "完了", color: "bg-gray-400" },
+  cancelled: { label: "キャンセル", color: "bg-red-400" },
 };
 
 export default function TasksPage() {
@@ -44,16 +44,16 @@ export default function TasksPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <h1 className="mb-2 text-3xl font-bold">Available Tasks</h1>
+      <h1 className="mb-2 text-3xl font-bold">案件一覧</h1>
       <p className="mb-8 text-[var(--color-text-light)]">
-        Currently open tasks. Registered senpai can review details and apply.
+        現在募集中の案件です。ご登録済みの先輩は、案件の詳細をご確認の上ご応募ください。
       </p>
 
       {loading ? (
-        <p className="text-center text-[var(--color-text-light)] py-12">Loading...</p>
+        <p className="text-center text-[var(--color-text-light)] py-12">読み込み中...</p>
       ) : tasks.length === 0 ? (
         <p className="text-center text-[var(--color-text-light)] py-12">
-          No tasks available at the moment. Please check back later.
+          現在募集中の案件はありません。しばらくお待ちください。
         </p>
       ) : (
         <div className="space-y-4">
@@ -92,7 +92,7 @@ export default function TasksPage() {
                   <div className="flex flex-wrap items-center gap-4">
                     {task.date && (
                       <span className="text-sm text-[var(--color-text-light)]">
-                        Deadline: {task.date}
+                        希望日: {task.date}
                       </span>
                     )}
                     {task.reward && (
@@ -118,13 +118,13 @@ export default function TasksPage() {
 
       <div className="mt-12 rounded-xl bg-[var(--color-bg-warm)] p-8 text-center">
         <p className="mb-4 text-lg">
-          You need to register as a senpai to apply for tasks.
+          案件に応募するには、先輩としてのご登録が必要です。
         </p>
         <Link
           href="/register"
           className="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-8 py-3 font-bold text-white transition hover:bg-[var(--color-primary-light)]"
         >
-          Register as Senpai
+          先輩として登録する
         </Link>
       </div>
       {applyTask && (
