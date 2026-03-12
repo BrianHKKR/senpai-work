@@ -47,7 +47,11 @@ export default function Footer() {
           <div>
             <h4 className="mb-3 font-bold">{isEn ? "Company" : "運営"}</h4>
             <ul className="space-y-2 text-sm text-[var(--color-text-light)]">
-              <li>{isEn ? "Operator: Mement Hong Kong Limited" : "運営会社: Mement Hong Kong Limited"}</li>
+              <li>
+                <Link href={`${prefix}/about`} className="hover:text-[var(--color-primary)]">
+                  {isEn ? "About Us" : "会社概要"}
+                </Link>
+              </li>
               <li>
                 <Link href={`${prefix}/privacy`} className="hover:text-[var(--color-primary)]">
                   {isEn ? "Privacy Policy" : "プライバシーポリシー"}
