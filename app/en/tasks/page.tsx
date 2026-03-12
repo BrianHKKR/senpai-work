@@ -132,6 +132,7 @@ export default function TasksPage() {
           taskId={applyTask.id}
           taskTitle={applyTask.title}
           isEn
+          prefix="/en"
           onClose={() => setApplyTask(null)}
         />
       )}
