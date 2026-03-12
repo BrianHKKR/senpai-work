@@ -15,45 +15,45 @@ const sampleTasks: Task[] = [
   {
     id: "1",
     tier: "T2",
-    title: "Cosmetics factory inspection & photo report",
-    location: "Aichi Prefecture, Nagoya",
-    date: "Late March 2026",
+    title: "化粧品工場の現地視察・写真レポート",
+    location: "愛知県名古屋市",
+    date: "2026年3月下旬",
     reward: "¥20,000",
     description:
-      "Visit a cosmetics OEM factory under M&A consideration. Take photos of the exterior, equipment, and surrounding area, and prepare a report. Estimated time: ~2 hours.",
+      "M&A検討中の化粧品OEM工場を訪問し、外観・設備・周辺環境の写真撮影とレポートを作成していただきます。所要時間：約2時間。",
     status: "open",
   },
   {
     id: "2",
     tier: "T1",
-    title: "Emergency contact registration for rental property",
-    location: "Aichi Prefecture, Nagoya",
-    date: "Anytime",
+    title: "賃貸物件の緊急連絡先登録",
+    location: "愛知県名古屋市",
+    date: "随時",
     reward: "¥5,000",
     description:
-      "Register as the emergency contact for a rental contract held by a foreign owner. You may occasionally relay messages from the property management company (a few times per year).",
+      "外国籍オーナーの賃貸契約における緊急連絡先として登録していただきます。年に数回、管理会社からの連絡を取り次いでいただく場合があります。",
     status: "open",
   },
   {
     id: "3",
     tier: "T3",
-    title: "BATONZ M&A owner meeting on behalf of buyer",
-    location: "Kansai region",
-    date: "Early April 2026",
+    title: "BATONZ案件オーナーとの面談代行",
+    location: "関西地方",
+    date: "2026年4月上旬",
     reward: "¥50,000",
     description:
-      "Attend the initial meeting with the selling owner for a business listed on the BATONZ succession platform. Briefing materials will be provided in advance.",
+      "事業承継プラットフォームBAT ONZの案件について、売却オーナーとの初回面談を代行していただきます。事前にブリーフィング資料をお渡しします。",
     status: "open",
   },
   {
     id: "4",
     tier: "T2",
-    title: "Kominka (traditional house) property inspection",
-    location: "Nagoya, Shikemichi area",
-    date: "Mid-March 2026",
+    title: "古民家物件の内見・状態レポート",
+    location: "愛知県名古屋市 四間道エリア",
+    date: "2026年3月中旬",
     reward: "¥15,000",
     description:
-      "Visit a candidate kominka property in Nagoya and prepare a report on the building condition, surrounding environment, and accessibility.",
+      "名古屋市内の古民家候補物件を内見し、建物の状態、周辺環境、アクセスについてレポートを作成していただきます。",
     status: "assigned",
   },
 ];
@@ -66,25 +66,25 @@ const tierColors: Record<string, string> = {
 };
 
 const statusLabels: Record<string, { label: string; color: string }> = {
-  open: { label: "Open", color: "bg-green-500" },
-  assigned: { label: "Assigned", color: "bg-yellow-500" },
-  completed: { label: "Completed", color: "bg-gray-400" },
+  open: { label: "募集中", color: "bg-green-500" },
+  assigned: { label: "対応中", color: "bg-yellow-500" },
+  completed: { label: "完了", color: "bg-gray-400" },
 };
 
 export default function TasksPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <h1 className="mb-2 text-3xl font-bold">Available Tasks</h1>
+      <h1 className="mb-2 text-3xl font-bold">案件一覧</h1>
       <p className="mb-8 text-[var(--color-text-light)]">
-        Currently open tasks. Registered senpai can review details and apply.
+        現在募集中の案件です。ご登録済みの先輩は、案件の詳細をご確認の上ご応募ください。
       </p>
 
       {/* Filters */}
       <div className="mb-8 flex flex-wrap gap-2">
         <button className="rounded-full bg-[var(--color-primary)] px-4 py-2 text-sm font-bold text-white">
-          All
+          すべて
         </button>
-        {["T1: Documents", "T2: On-Site", "T3: Negotiation", "T4: Director"].map(
+        {["T1: 書類", "T2: 現場", "T3: 交渉", "T4: ディレクター"].map(
           (label) => (
             <button
               key={label}
@@ -125,7 +125,7 @@ export default function TasksPage() {
             </p>
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex gap-6 text-sm text-[var(--color-text-light)]">
-                <span>Target date: {task.date}</span>
+                <span>希望日: {task.date}</span>
               </div>
               <span className="text-xl font-bold text-[var(--color-accent)]">
                 {task.reward}
@@ -138,13 +138,13 @@ export default function TasksPage() {
       {/* CTA */}
       <div className="mt-12 rounded-xl bg-[var(--color-bg-warm)] p-8 text-center">
         <p className="mb-4 text-lg">
-          You need to register as a senpai to apply for tasks.
+          案件に応募するには、先輩としてのご登録が必要です。
         </p>
         <Link
-          href="/register"
+          href="/ja/register"
           className="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-8 py-3 font-bold text-white transition hover:bg-[var(--color-primary-light)]"
         >
-          Register as Senpai
+          先輩として登録する
         </Link>
       </div>
     </div>

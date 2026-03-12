@@ -35,13 +35,13 @@ const prefectures = [
 ];
 
 const tierOptions = [
-  { value: "T1", label: "T1: Document Support (¥5,000~¥8,000)" },
-  { value: "T2", label: "T2: On-Site Agent (¥8,000~¥25,000)" },
-  { value: "T3", label: "T3: Negotiation (¥25,000~¥80,000)" },
-  { value: "T4", label: "T4: Director (Monthly retainer)" },
+  { value: "T1", label: "T1: 書類サポート（¥5,000〜¥8,000）" },
+  { value: "T2", label: "T2: 現場代行（¥8,000〜¥25,000）" },
+  { value: "T3", label: "T3: 交渉・面談（¥25,000〜¥80,000）" },
+  { value: "T4", label: "T4: ディレクター（月額制）" },
 ];
 
-const dayOptions = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const dayOptions = ["月曜", "火曜", "水曜", "木曜", "金曜", "土曜", "日曜"];
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);
@@ -96,10 +96,10 @@ export default function RegisterPage() {
       if (res.ok) {
         setSubmitted(true);
       } else {
-        setError("Registration failed. Please try again.");
+        setError("登録に失敗しました。もう一度お試しください。");
       }
     } catch {
-      setError("A network error occurred. Please try again.");
+      setError("通信エラーが発生しました。もう一度お試しください。");
     } finally {
       setIsSubmitting(false);
     }
@@ -109,12 +109,12 @@ export default function RegisterPage() {
     return (
       <div className="mx-auto max-w-2xl px-6 py-24 text-center">
         <div className="mb-6 text-6xl">✓</div>
-        <h1 className="mb-4 text-3xl font-bold">Thank you for registering</h1>
+        <h1 className="mb-4 text-3xl font-bold">ご登録ありがとうございます</h1>
         <p className="mb-2 text-lg text-[var(--color-text-light)]">
-          We will review your information and contact you within 3 business days via LINE or phone.
+          内容を確認の上、3営業日以内にLINEまたはお電話にてご連絡いたします。
         </p>
         <p className="text-[var(--color-text-light)]">
-          You will receive an invitation for a short video interview (10-15 min).
+          ビデオ面談（10〜15分）のご案内をお送りします。
         </p>
       </div>
     );
@@ -122,9 +122,9 @@ export default function RegisterPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="mb-2 text-3xl font-bold">Register as Senpai</h1>
+      <h1 className="mb-2 text-3xl font-bold">先輩として登録</h1>
       <p className="mb-8 text-[var(--color-text-light)]">
-        Put your experience and skills to work for those who need them.
+        あなたの経験とスキルを、必要としている方に届けます。
       </p>
 
       {/* Progress bar */}
@@ -142,24 +142,24 @@ export default function RegisterPage() {
       {/* Step 1: Basic info */}
       {step === 1 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold">Basic Information</h2>
+          <h2 className="text-xl font-bold">基本情報</h2>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Full Name <span className="text-red-500">*</span>
+                お名前 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => updateField("name", e.target.value)}
-                placeholder="Taro Yamada"
+                placeholder="山田 太郎"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Name (Katakana) <span className="text-red-500">*</span>
+                フリガナ <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -173,17 +173,17 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              Birth Year <span className="text-red-500">*</span>
+              生年 <span className="text-red-500">*</span>
             </label>
             <select
               value={form.birthYear}
               onChange={(e) => updateField("birthYear", e.target.value)}
               className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
             >
-              <option value="">Please select</option>
+              <option value="">選択してください</option>
               {Array.from({ length: 40 }, (_, i) => 1950 + i).map((year) => (
                 <option key={year} value={year}>
-                  {year}
+                  {year}年
                 </option>
               ))}
             </select>
@@ -192,14 +192,14 @@ export default function RegisterPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Prefecture <span className="text-red-500">*</span>
+                都道府県 <span className="text-red-500">*</span>
               </label>
               <select
                 value={form.prefecture}
                 onChange={(e) => updateField("prefecture", e.target.value)}
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               >
-                <option value="">Please select</option>
+                <option value="">選択してください</option>
                 {prefectures.map((p) => (
                   <option key={p} value={p}>
                     {p}
@@ -209,13 +209,13 @@ export default function RegisterPage() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-bold">
-                City <span className="text-red-500">*</span>
+                市区町村 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={form.city}
                 onChange={(e) => updateField("city", e.target.value)}
-                placeholder="Nagoya-shi, Naka-ku"
+                placeholder="名古屋市中区"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
@@ -224,7 +224,7 @@ export default function RegisterPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Phone Number <span className="text-red-500">*</span>
+                電話番号 <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
@@ -250,7 +250,7 @@ export default function RegisterPage() {
             onClick={() => setStep(2)}
             className="w-full rounded-lg bg-[var(--color-primary)] py-4 text-lg font-bold text-white transition hover:bg-[var(--color-primary-light)]"
           >
-            Next
+            次へ
           </button>
         </div>
       )}
@@ -258,41 +258,41 @@ export default function RegisterPage() {
       {/* Step 2: Career & Skills */}
       {step === 2 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold">Career & Skills</h2>
+          <h2 className="text-xl font-bold">経歴・スキル</h2>
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              Previous Company
+              前職の会社名
             </label>
             <input
               type="text"
               value={form.previousCompany}
               onChange={(e) => updateField("previousCompany", e.target.value)}
-              placeholder="Company name"
+              placeholder="株式会社○○"
               className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
             />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-bold">Position</label>
+              <label className="mb-1 block text-sm font-bold">役職</label>
               <input
                 type="text"
                 value={form.previousPosition}
                 onChange={(e) =>
                   updateField("previousPosition", e.target.value)
                 }
-                placeholder="Director, Manager, etc."
+                placeholder="部長、課長など"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-bold">Years Worked</label>
+              <label className="mb-1 block text-sm font-bold">勤続年数</label>
               <input
                 type="text"
                 value={form.yearsWorked}
                 onChange={(e) => updateField("yearsWorked", e.target.value)}
-                placeholder="25 years"
+                placeholder="25年"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
@@ -300,20 +300,20 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              Qualifications (if any)
+              保有資格（あれば）
             </label>
             <input
               type="text"
               value={form.qualifications}
               onChange={(e) => updateField("qualifications", e.target.value)}
-              placeholder="Real estate license, bookkeeping, etc."
+              placeholder="宅建士、行政書士、簿記など"
               className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
             />
           </div>
 
           <div>
             <label className="mb-2 block text-sm font-bold">
-              Preferred Tasks
+              希望する業務
             </label>
             <div className="space-y-3">
               {tierOptions.map((tier) => (
@@ -335,7 +335,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-2 block text-sm font-bold">
-              Available Days
+              対応可能な曜日
             </label>
             <div className="flex flex-wrap gap-2">
               {dayOptions.map((day) => (
@@ -357,12 +357,12 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              Motivation (optional)
+              応募の動機（自由記述）
             </label>
             <textarea
               value={form.motivation}
               onChange={(e) => updateField("motivation", e.target.value)}
-              placeholder="Tell us why you'd like to register and what experience you'd like to put to use"
+              placeholder="ご登録いただく理由や、活かしたい経験などをお聞かせください"
               rows={4}
               className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
             />
@@ -373,13 +373,13 @@ export default function RegisterPage() {
               onClick={() => setStep(1)}
               className="flex-1 rounded-lg border border-[var(--color-border)] py-4 text-lg font-bold transition hover:bg-gray-50"
             >
-              Back
+              戻る
             </button>
             <button
               onClick={() => setStep(3)}
               className="flex-1 rounded-lg bg-[var(--color-primary)] py-4 text-lg font-bold text-white transition hover:bg-[var(--color-primary-light)]"
             >
-              Next
+              次へ
             </button>
           </div>
         </div>
@@ -388,33 +388,33 @@ export default function RegisterPage() {
       {/* Step 3: Bank info */}
       {step === 3 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold">Bank Account Information</h2>
+          <h2 className="text-xl font-bold">お振込先情報</h2>
           <p className="text-sm text-[var(--color-text-light)]">
-            Payment is sent via Wise (international transfer service) to your designated Japanese bank account.
+            報酬はWise（国際送金サービス）を通じて、ご指定の日本の銀行口座にお振込みいたします。
           </p>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Bank Name <span className="text-red-500">*</span>
+                銀行名 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={form.bankName}
                 onChange={(e) => updateField("bankName", e.target.value)}
-                placeholder="MUFG Bank"
+                placeholder="三菱UFJ銀行"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Branch Name <span className="text-red-500">*</span>
+                支店名 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={form.branchName}
                 onChange={(e) => updateField("branchName", e.target.value)}
-                placeholder="Nagoya Branch"
+                placeholder="名古屋支店"
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               />
             </div>
@@ -422,19 +422,19 @@ export default function RegisterPage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-bold">Account Type</label>
+              <label className="mb-1 block text-sm font-bold">口座種別</label>
               <select
                 value={form.accountType}
                 onChange={(e) => updateField("accountType", e.target.value)}
                 className="w-full rounded-lg border border-[var(--color-border)] px-4 py-3 text-lg"
               >
-                <option value="普通">Regular (普通)</option>
-                <option value="当座">Current (当座)</option>
+                <option value="普通">普通</option>
+                <option value="当座">当座</option>
               </select>
             </div>
             <div>
               <label className="mb-1 block text-sm font-bold">
-                Account Number <span className="text-red-500">*</span>
+                口座番号 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -448,7 +448,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="mb-1 block text-sm font-bold">
-              Account Holder (Katakana) <span className="text-red-500">*</span>
+              口座名義（カナ） <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -460,11 +460,11 @@ export default function RegisterPage() {
           </div>
 
           <div className="rounded-lg bg-[var(--color-bg-warm)] p-6">
-            <h3 className="mb-2 font-bold">About Identity Verification</h3>
+            <h3 className="mb-2 font-bold">本人確認について</h3>
             <p className="text-sm text-[var(--color-text-light)]">
-              After registration, we will ask for identity verification via driver&apos;s license or My Number card,
-              and a short video interview (LINE/Zoom, 10-15 min).
-              Details will be provided when we contact you.
+              ご登録後、運転免許証またはマイナンバーカードによる本人確認と、
+              短時間のビデオ面談（LINE/Zoom、10〜15分）をお願いしております。
+              詳細はご連絡時にご案内いたします。
             </p>
           </div>
 
@@ -473,7 +473,7 @@ export default function RegisterPage() {
               onClick={() => setStep(2)}
               className="flex-1 rounded-lg border border-[var(--color-border)] py-4 text-lg font-bold transition hover:bg-gray-50"
             >
-              Back
+              戻る
             </button>
             {error && (
               <p className="text-red-500 text-sm">{error}</p>
@@ -483,7 +483,7 @@ export default function RegisterPage() {
               disabled={isSubmitting}
               className="flex-1 rounded-lg bg-[var(--color-accent)] py-4 text-lg font-bold text-white transition hover:bg-[var(--color-accent-light)] disabled:opacity-50"
             >
-              {isSubmitting ? "Submitting..." : "Submit Registration"}
+              {isSubmitting ? "送信中..." : "登録を申請する"}
             </button>
           </div>
         </div>
