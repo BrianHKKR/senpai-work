@@ -33,7 +33,7 @@ export default function TasksPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/tasks")
+    fetch("/api/tasks?lang=en")
       .then((res) => res.json())
       .then((data) => setTasks(data))
       .catch(() => setTasks([]))
