@@ -64,7 +64,7 @@ export default function LegalPage() {
               ],
               [
                 "Governing Law",
-                "Disputes arising from the use of this Service shall be governed by the laws of Japan, with the Tokyo District Court as the court of first instance.",
+                "Disputes arising from the use of this Service shall be governed by the laws of Hong Kong SAR and resolved through arbitration under the rules of the Hong Kong International Arbitration Centre (HKIAC).",
               ],
             ].map(([label, value], i) => (
               <tr key={i}>
