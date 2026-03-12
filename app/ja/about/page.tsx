@@ -70,41 +70,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Corporate Structure */}
-        <section className="rounded-xl border border-[var(--color-border)] bg-white p-8">
-          <h2 className="mb-4 text-xl font-bold">グループ構成</h2>
-          <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-[var(--color-border)] p-4">
-              <p className="font-bold">Mement Co., Ltd.</p>
-              <p className="text-[var(--color-text-light)]">韓国本社 — マーケティング、調達、国内フランチャイズ管理</p>
-            </div>
-            <div className="ml-6 border-l-2 border-[var(--color-border)] pl-4">
-              <div className="rounded-lg border border-[var(--color-border)] p-4">
-                <p className="font-bold">Mement Overseas Holdings, Limited</p>
-                <p className="text-[var(--color-text-light)]">ケイマン諸島 — 海外投資持株会社</p>
-              </div>
-              <div className="mt-3 ml-6 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border-2 border-[var(--color-primary)] p-4">
-                  <p className="font-bold text-[var(--color-primary)]">Mement Hong Kong Limited</p>
-                  <p className="text-[var(--color-text-light)]">香港 — 投資・事業運営</p>
-                  <div className="mt-2 rounded border border-[var(--color-border)] p-3">
-                    <p className="text-xs font-bold">Skin and Beam Hong Kong Limited</p>
-                    <p className="text-xs text-[var(--color-text-light)]">香港クリニック運営</p>
-                  </div>
-                </div>
-                <div className="rounded-lg border border-[var(--color-border)] p-4">
-                  <p className="font-bold">Mement Inc.</p>
-                  <p className="text-[var(--color-text-light)]">米国（デラウェア） — 米国投資持株</p>
-                  <div className="mt-2 rounded border border-[var(--color-border)] p-3">
-                    <p className="text-xs font-bold">Mement Operations LLC</p>
-                    <p className="text-xs text-[var(--color-text-light)]">カリフォルニア事業運営</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Senpai.work */}
         <section className="rounded-xl border border-[var(--color-border)] bg-white p-8">
           <h2 className="mb-4 text-xl font-bold">先輩.workについて</h2>

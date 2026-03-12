@@ -70,41 +70,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Corporate Structure */}
-        <section className="rounded-xl border border-[var(--color-border)] bg-white p-8">
-          <h2 className="mb-4 text-xl font-bold">Corporate Structure</h2>
-          <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-[var(--color-border)] p-4">
-              <p className="font-bold">Mement Co., Ltd.</p>
-              <p className="text-[var(--color-text-light)]">South Korea HQ &mdash; Marketing, Procurement, Domestic Franchise Management</p>
-            </div>
-            <div className="ml-6 border-l-2 border-[var(--color-border)] pl-4">
-              <div className="rounded-lg border border-[var(--color-border)] p-4">
-                <p className="font-bold">Mement Overseas Holdings, Limited</p>
-                <p className="text-[var(--color-text-light)]">Cayman Islands &mdash; Overseas Investment Holdings</p>
-              </div>
-              <div className="mt-3 ml-6 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border-2 border-[var(--color-primary)] p-4">
-                  <p className="font-bold text-[var(--color-primary)]">Mement Hong Kong Limited</p>
-                  <p className="text-[var(--color-text-light)]">Hong Kong &mdash; Investment &amp; Operations</p>
-                  <div className="mt-2 rounded border border-[var(--color-border)] p-3">
-                    <p className="text-xs font-bold">Skin and Beam Hong Kong Limited</p>
-                    <p className="text-xs text-[var(--color-text-light)]">Hong Kong clinic operations</p>
-                  </div>
-                </div>
-                <div className="rounded-lg border border-[var(--color-border)] p-4">
-                  <p className="font-bold">Mement Inc.</p>
-                  <p className="text-[var(--color-text-light)]">U.S. (Delaware) &mdash; US Investment Holdings</p>
-                  <div className="mt-2 rounded border border-[var(--color-border)] p-3">
-                    <p className="text-xs font-bold">Mement Operations LLC</p>
-                    <p className="text-xs text-[var(--color-text-light)]">California operations</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Senpai.work */}
         <section className="rounded-xl border border-[var(--color-border)] bg-white p-8">
           <h2 className="mb-4 text-xl font-bold">About Senpai.work</h2>
