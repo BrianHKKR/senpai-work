@@ -2,36 +2,46 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isEn = pathname.startsWith("/en");
+  const prefix = isEn ? "/en" : "";
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-2xl font-bold text-[var(--color-primary)]">
+        <Link href={isEn ? "/en" : "/"} className="text-2xl font-bold text-[var(--color-primary)]">
           先輩<span className="text-[var(--color-accent)]">.work</span>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
           <Link
-            href="/tasks"
+            href={`${prefix}/tasks`}
             className="text-[var(--color-text-light)] transition hover:text-[var(--color-primary)]"
           >
-            案件一覧
+            {isEn ? "Tasks" : "案件一覧"}
           </Link>
           <Link
-            href="/how-it-works"
+            href={`${prefix}/how-it-works`}
             className="text-[var(--color-text-light)] transition hover:text-[var(--color-primary)]"
           >
-            ご利用方法
+            {isEn ? "How It Works" : "ご利用方法"}
           </Link>
           <Link
-            href="/register"
+            href={`${prefix}/register`}
             className="rounded-lg bg-[var(--color-primary)] px-6 py-2.5 font-bold text-white transition hover:bg-[var(--color-primary-light)]"
           >
-            先輩登録
+            {isEn ? "Register" : "先輩登録"}
+          </Link>
+          <Link
+            href={isEn ? "/" : "/en"}
+            className="text-sm text-[var(--color-text-light)] transition hover:text-[var(--color-primary)]"
+          >
+            {isEn ? "日本語" : "EN"}
           </Link>
         </nav>
 
@@ -71,25 +81,32 @@ export default function Header() {
         <nav className="border-t border-[var(--color-border)] bg-white px-6 py-4 md:hidden">
           <div className="flex flex-col gap-4">
             <Link
-              href="/tasks"
+              href={`${prefix}/tasks`}
               className="text-lg"
               onClick={() => setIsOpen(false)}
             >
-              案件一覧
+              {isEn ? "Tasks" : "案件一覧"}
             </Link>
             <Link
-              href="/how-it-works"
+              href={`${prefix}/how-it-works`}
               className="text-lg"
               onClick={() => setIsOpen(false)}
             >
-              ご利用方法
+              {isEn ? "How It Works" : "ご利用方法"}
             </Link>
             <Link
-              href="/register"
+              href={`${prefix}/register`}
               className="rounded-lg bg-[var(--color-primary)] px-6 py-3 text-center font-bold text-white"
               onClick={() => setIsOpen(false)}
             >
-              先輩登録
+              {isEn ? "Register" : "先輩登録"}
+            </Link>
+            <Link
+              href={isEn ? "/" : "/en"}
+              className="text-center text-sm"
+              onClick={() => setIsOpen(false)}
+            >
+              {isEn ? "日本語" : "English"}
             </Link>
           </div>
         </nav>
