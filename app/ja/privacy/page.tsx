@@ -110,7 +110,7 @@ export default function PrivacyPage() {
               <br />
               所在地: Central, Hong Kong SAR
               <br />
-              メール: privacy@senpai.work
+              メール: welcome@skinbeam.hk
             </p>
           </div>
         </section>

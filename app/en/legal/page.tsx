@@ -15,7 +15,7 @@ export default function LegalPage() {
               [
                 "Contact",
                 <>
-                  Email: info@senpai.work
+                  Email: welcome@skinbeam.hk
                   <br />
                   Inquiries accepted via email
                 </>,

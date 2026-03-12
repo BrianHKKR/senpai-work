@@ -101,7 +101,7 @@ export default function PrivacyPage() {
               <br />
               Location: Central, Hong Kong SAR
               <br />
-              Email: privacy@senpai.work
+              Email: welcome@skinbeam.hk
             </p>
           </div>
         </section>

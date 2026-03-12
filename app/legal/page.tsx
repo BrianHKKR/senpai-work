@@ -12,7 +12,7 @@ export default function LegalPage() {
               [
                 "連絡先",
                 <>
-                  メール: info@senpai.work
+                  メール: welcome@skinbeam.hk
                   <br />
                   ※お問い合わせはメールにて承ります
                 </>,
