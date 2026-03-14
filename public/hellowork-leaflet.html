@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ハローワーク配置用リーフレット — senpai.work</title>
+  <style>
+    /* A5: 148mm x 210mm — print at actual size */
+    @page {
+      size: 148mm 210mm;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Meiryo", "Yu Gothic", sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .leaflet {
+      width: 148mm;
+      min-height: 210mm;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 10mm 9mm 8mm;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── ヘッダー帯 ── */
+    .header {
+      background: #1a3a5c;
+      color: #fff;
+      border-radius: 4px;
+      padding: 5mm 6mm 4mm;
+      margin-bottom: 5mm;
+    }
+
+    .header .sub {
+      font-size: 10pt;
+      color: #a8c8f0;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5mm;
+    }
+
+    .header h1 {
+      font-size: 17pt;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: 0.03em;
+    }
+
+    .header .tagline {
+      font-size: 9.5pt;
+      color: #c8dff5;
+      margin-top: 2mm;
+    }
+
+    /* ── NOT雇用 バッジ ── */
+    .badge-row {
+      display: flex;
+      gap: 3mm;
+      margin-bottom: 5mm;
+    }
+
+    .badge {
+      flex: 1;
+      border-radius: 4px;
+      padding: 3mm 4mm;
+      text-align: center;
+    }
+
+    .badge.blue {
+      background: #e8f1fb;
+      border: 1.5px solid #4a90d9;
+    }
+
+    .badge.green {
+      background: #e8f6ee;
+      border: 1.5px solid #3aaa6a;
+    }
+
+    .badge .label {
+      font-size: 7.5pt;
+      color: #555;
+      margin-bottom: 1mm;
+    }
+
+    .badge .value {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    /* ── セクション ── */
+    .section {
+      margin-bottom: 5mm;
+    }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      border-left: 3px solid #4a90d9;
+      padding-left: 3mm;
+      margin-bottom: 3mm;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 案件カード ── */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5mm;
+    }
+
+    .task-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 3mm;
+      background: #f7f9fc;
+      border-radius: 4px;
+      padding: 3mm 3.5mm;
+    }
+
+    .task-tier {
+      background: #1a3a5c;
+      color: #fff;
+      font-size: 7pt;
+      font-weight: 700;
+      border-radius: 3px;
+      padding: 1mm 2mm;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.5mm;
+    }
+
+    .task-body {
+      flex: 1;
+    }
+
+    .task-name {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #222;
+      line-height: 1.3;
+    }
+
+    .task-detail {
+      font-size: 8pt;
+      color: #555;
+      margin-top: 0.5mm;
+      line-height: 1.4;
+    }
+
+    .task-fee {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #2a7a4a;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.5mm;
+    }
+
+    /* ── 仕組み ── */
+    .steps {
+      display: flex;
+      gap: 2mm;
+    }
+
+    .step {
+      flex: 1;
+      background: #f0f5ff;
+      border-radius: 4px;
+      padding: 2.5mm 2mm;
+      text-align: center;
+    }
+
+    .step-num {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #4a90d9;
+      line-height: 1;
+    }
+
+    .step-text {
+      font-size: 7.5pt;
+      color: #333;
+      margin-top: 1mm;
+      line-height: 1.4;
+    }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 12pt;
+      color: #aaa;
+      flex-shrink: 0;
+    }
+
+    /* ── 安心ポイント ── */
+    .points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+    }
+
+    .points li {
+      font-size: 9pt;
+      color: #333;
+      display: flex;
+      align-items: flex-start;
+      gap: 2mm;
+      line-height: 1.45;
+    }
+
+    .check {
+      color: #3aaa6a;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 10pt;
+    }
+
+    /* ── フッター ── */
+    .footer {
+      margin-top: auto;
+      padding-top: 4mm;
+      border-top: 1px solid #dde4ef;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left .url {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #1a3a5c;
+      letter-spacing: 0.03em;
+    }
+
+    .footer-left .url-sub {
+      font-size: 7.5pt;
+      color: #777;
+      margin-top: 0.5mm;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-right .op-label {
+      font-size: 6.5pt;
+      color: #999;
+    }
+
+    .footer-right .op-name {
+      font-size: 8pt;
+      color: #444;
+      font-weight: 700;
+    }
+
+    .note-box {
+      background: #fff8e1;
+      border: 1px solid #f5c842;
+      border-radius: 4px;
+      padding: 2.5mm 3mm;
+      font-size: 7.5pt;
+      color: #7a5c00;
+      line-height: 1.5;
+      margin-bottom: 4mm;
+    }
+
+    .note-box strong {
+      font-size: 8pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="leaflet">
+
+    <!-- ヘッダー -->
+    <div class="header">
+      <div class="sub">65歳以上の方へ　情報提供チラシ</div>
+      <h1>「業務委託」という<br>新しい働き方</h1>
+      <div class="tagline">自分のペースで、得意を活かして、1件ずつ。</div>
+    </div>
+
+    <!-- バッジ -->
+    <div class="badge-row">
+      <div class="badge blue">
+        <div class="label">契約形態</div>
+        <div class="value">業務委託<br><span style="font-size:8pt;font-weight:400;color:#555;">（雇用ではありません）</span></div>
+      </div>
+      <div class="badge green">
+        <div class="label">年収上限目安</div>
+        <div class="value">年間¥200,000<br><span style="font-size:8pt;font-weight:400;color:#555;">以下で確定申告不要*</span></div>
+      </div>
+    </div>
+
+    <!-- 注意書き -->
+    <div class="note-box">
+      <strong>雇用との違い：</strong>
+      このサービスは「業務委託契約」です。ハローワークの求人票とは異なり、好きな案件だけを自由に受けることができます。勤務時間・場所の拘束はありません。
+    </div>
+
+    <!-- 案件例 -->
+    <div class="section">
+      <div class="section-title">案件例と報酬</div>
+      <div class="task-list">
+        <div class="task-card">
+          <div class="task-tier">T1</div>
+          <div class="task-body">
+            <div class="task-name">書類・郵便サポート</div>
+            <div class="task-detail">緊急連絡先代行、役所書類の受け取り</div>
+          </div>
+          <div class="task-fee">¥5,000〜<br>¥8,000</div>
+        </div>
+        <div class="task-card">
+          <div class="task-tier">T2</div>
+          <div class="task-body">
+            <div class="task-name">現場視察・レポート</div>
+            <div class="task-detail">工場・物件の内見、写真レポート作成</div>
+          </div>
+          <div class="task-fee">¥8,000〜<br>¥25,000</div>
+        </div>
+        <div class="task-card">
+          <div class="task-tier">T3</div>
+          <div class="task-body">
+            <div class="task-name">交渉・面談代行</div>
+            <div class="task-detail">M&Aオーナー面談、不動産交渉</div>
+          </div>
+          <div class="task-fee">¥25,000〜<br>¥80,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 仕組み -->
+    <div class="section">
+      <div class="section-title">はじめ方（3ステップ）</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">サイトから<br>登録</div>
+        </div>
+        <div class="step-arrow">›</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">本人確認<br>（免許証等）</div>
+        </div>
+        <div class="step-arrow">›</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">ZoomまたはLINEで<br>10分面談</div>
+        </div>
+        <div class="step-arrow">›</div>
+        <div class="step">
+          <div class="step-num">★</div>
+          <div class="step-text">案件を<br>受ける</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 安心ポイント -->
+    <div class="section">
+      <div class="section-title">安心ポイント</div>
+      <ul class="points">
+        <li><span class="check">✓</span>嫌な案件は断ってOK。ノルマなし。</li>
+        <li><span class="check">✓</span>報酬は銀行振込（Wise経由）。安全・迅速。</li>
+        <li><span class="check">✓</span>年金受給中の方も安心。社会保険への影響なし*</li>
+        <li><span class="check">✓</span>PCなしでもOK。スマートフォン1台で登録完了。</li>
+        <li><span class="check">✓</span>運営：Mement Hong Kong Limited（香港法人）</li>
+      </ul>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+      <div class="footer-left">
+        <div class="url">senpai.work</div>
+        <div class="url-sub">（スマホで検索またはQRコード読み取り）</div>
+      </div>
+      <div class="footer-right">
+        <div class="op-label">運営</div>
+        <div class="op-name">Mement Hong Kong Limited</div>
+        <div class="op-label" style="margin-top:1mm;">*税務は各自ご確認ください</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

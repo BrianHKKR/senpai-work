@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オンライン説明会 設計書 — senpai.work</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Meiryo", "Yu Gothic", sans-serif;
+      background: #f4f6fb;
+      color: #222;
+      padding: 24px 16px 48px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── ページタイトル ── */
+    .page-title {
+      background: #1a3a5c;
+      color: #fff;
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+
+    .page-title .label {
+      font-size: 11px;
+      color: #a8c8f0;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .page-title h1 {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .page-title .meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-chip {
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 12px;
+      color: #d8eaff;
+    }
+
+    /* ── カードブロック ── */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-header .icon {
+      font-size: 16px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* ── タイムテーブル ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 0;
+    }
+
+    .tl-time {
+      width: 90px;
+      flex-shrink: 0;
+      padding: 14px 12px 14px 0;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #4a90d9;
+      border-right: 2px solid #dde6f5;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    .tl-dot {
+      width: 18px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tl-dot-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #4a90d9;
+      margin-top: 18px;
+      flex-shrink: 0;
+    }
+
+    .tl-dot-line {
+      width: 2px;
+      flex: 1;
+      background: #dde6f5;
+      margin-top: 2px;
+    }
+
+    .tl-item:last-child .tl-dot-line {
+      display: none;
+    }
+
+    .tl-content {
+      flex: 1;
+      padding: 12px 0 12px 12px;
+    }
+
+    .tl-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .tl-duration {
+      display: inline-block;
+      background: #e8f1fb;
+      color: #4a90d9;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 1px 8px;
+      margin-left: 6px;
+    }
+
+    .tl-desc {
+      font-size: 12.5px;
+      color: #555;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    .tl-bullets {
+      margin-top: 5px;
+      padding-left: 16px;
+      font-size: 12.5px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .tl-item.highlight .tl-dot-circle {
+      background: #e67e22;
+      width: 12px;
+      height: 12px;
+      margin-top: 17px;
+    }
+
+    .tl-item.highlight .tl-title {
+      color: #c0392b;
+    }
+
+    .tl-item.highlight .tl-duration {
+      background: #fde8e4;
+      color: #c0392b;
+    }
+
+    /* ── 告知文 ── */
+    .announce-box {
+      background: #f0f5ff;
+      border: 1.5px solid #b0c8f0;
+      border-radius: 6px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+      color: #1a1a2e;
+    }
+
+    .announce-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #4a90d9;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    /* ── フォローアップ ── */
+    .followup-box {
+      background: #f0faf4;
+      border: 1.5px solid #80d4a0;
+      border-radius: 6px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+      color: #1a2e1a;
+    }
+
+    /* ── ツールヒント ── */
+    .tip {
+      background: #fff8e1;
+      border-left: 3px solid #f5c842;
+      padding: 10px 14px;
+      border-radius: 0 4px 4px 0;
+      font-size: 12.5px;
+      color: #7a5c00;
+      line-height: 1.6;
+    }
+
+    .tip + .tip {
+      margin-top: 10px;
+    }
+
+    /* ── 準備チェックリスト ── */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .checklist .box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #4a90d9;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── 2カラム ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-item {
+      background: #f7f9fc;
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .info-item .info-label {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .info-item .info-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 500px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ページタイトル -->
+  <div class="page-title">
+    <div class="label">SEMINAR DESIGN — senpai.work</div>
+    <h1>Senpai.work 無料オンライン説明会<br>設計書</h1>
+    <div class="meta">
+      <span class="meta-chip">毎月第2土曜日 14:00〜14:45</span>
+      <span class="meta-chip">Zoom（無料プラン）</span>
+      <span class="meta-chip">対象：5〜10名</span>
+    </div>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">📋</span>基本情報</div>
+    <div class="card-body">
+      <div class="two-col">
+        <div class="info-item">
+          <div class="info-label">名称</div>
+          <div class="info-value">Senpai.work 無料オンライン説明会</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">開催頻度</div>
+          <div class="info-value">毎月第2土曜日</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">時間</div>
+          <div class="info-value">14:00〜14:45（45分）</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">プラットフォーム</div>
+          <div class="info-value">Zoom（無料プラン・40分制限あり）</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">定員</div>
+          <div class="info-value">5〜10名（少人数制）</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">参加費</div>
+          <div class="info-value">無料</div>
+        </div>
+      </div>
+      <div class="tip" style="margin-top:14px;">
+        <strong>Zoom無料プラン40分制限への対応：</strong>
+        メインセッション（14:00〜14:40）を第1ルームで実施。Q&Aは14:40にいったん退室後、再入室して5〜10分実施。または有料プラン（月¥2,200〜）への移行を検討。
+      </div>
+    </div>
+  </div>
+
+  <!-- タイムテーブル -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🕐</span>タイムテーブル（45分）</div>
+    <div class="card-body">
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-time">13:50<br>開場</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">入室・待機 <span class="tl-duration">10分前</span></div>
+            <div class="tl-desc">BGMを流しながら参加者を待機。チャットで「今日はよろしくお願いします！」と一言。</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:00<br>開始</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">オープニング・自己紹介 <span class="tl-duration">5分</span></div>
+            <div class="tl-desc">司会者（Brian）挨拶。本日の流れを説明。参加者にチャットで「お名前とお住まいの都道府県」を打ってもらう。</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:05</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Senpai.workとは何か <span class="tl-duration">8分</span></div>
+            <div class="tl-desc">スライド5枚構成：</div>
+            <ul class="tl-bullets">
+              <li>① シニアの経験・人脈は「資産」である</li>
+              <li>② 業務委託 vs 雇用の違い（1枚で明確に）</li>
+              <li>③ 依頼元はどんな人？（海外在住の日本人・外国法人）</li>
+              <li>④ 年間¥200,000以内 → 確定申告不要の仕組み</li>
+              <li>⑤ 実際の案件イメージ（地図付き）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:13</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">案件・報酬の具体例 <span class="tl-duration">8分</span></div>
+            <div class="tl-desc">T1〜T3を実例ストーリーで説明：</div>
+            <ul class="tl-bullets">
+              <li><strong>T1例：</strong>愛知県在住の田中さん（68歳）→ 郵便物受け取り代行 ¥6,000 / 月</li>
+              <li><strong>T2例：</strong>三重県在住の鈴木さん（63歳）→ 工場視察・写真レポート ¥20,000 / 件</li>
+              <li><strong>T3例：</strong>名古屋市在住の山田さん（65歳）→ 不動産売主との面談同席 ¥50,000 / 件</li>
+            </ul>
+            <div class="tl-desc" style="margin-top:6px;">「1件やるだけでランチ代が出る」「自分のペースで月1〜2件」というイメージを伝える。</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:21</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">登録〜受注の流れ <span class="tl-duration">6分</span></div>
+            <div class="tl-desc">画面共有でサイトをリアルタイムで見せながら説明：</div>
+            <ul class="tl-bullets">
+              <li>Step 1：senpai.work にアクセス → 登録フォーム（3分で完了）</li>
+              <li>Step 2：本人確認（免許証またはマイナンバーカードの写真）</li>
+              <li>Step 3：Zoom or LINEで10〜15分の面談</li>
+              <li>案件掲載 → 自分で選んで応募 → 完了後に振込</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item highlight">
+          <div class="tl-time">14:27</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">よくある不安・Q&A（先回り） <span class="tl-duration">7分</span></div>
+            <div class="tl-desc">スライドにQ&A形式で掲載：</div>
+            <ul class="tl-bullets">
+              <li>Q：年金に影響しますか？ → A：業務委託収入は年金停止の対象外（在職老齢年金は給与のみ対象）</li>
+              <li>Q：失敗したら責任をとらされますか？ → A：業務委託契約書に免責条項あり。過失でない限り問題なし。</li>
+              <li>Q：スマホしか持っていません → A：スマホだけで登録・応募・報告すべて完了できます</li>
+              <li>Q：外国の会社は信頼できますか？ → A：香港法人（Mement HK Ltd）。Wiseで安全送金。</li>
+              <li>Q：断っても大丈夫ですか？ → A：完全自由。嫌な案件はスルーでOK。ペナルティなし。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:34</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">参加者からの質問タイム <span class="tl-duration">5分</span></div>
+            <div class="tl-desc">チャットまたはマイク解放。「何でも聞いてください」と明るく。</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-time">14:39</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">クロージング・次のステップ案内 <span class="tl-duration">1分</span></div>
+            <div class="tl-desc">「登録はこちら→ senpai.work」をチャットに貼る。「個別面談ご希望の方はLINEください」と伝える。</div>
+          </div>
+        </div>
+
+        <div class="tl-item highlight">
+          <div class="tl-time">14:40<br>⚠️退室</div>
+          <div class="tl-dot"><div class="tl-dot-circle"></div><div class="tl-dot-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Zoom再入室（無料プラン対応） <span class="tl-duration">最大5分</span></div>
+            <div class="tl-desc">「いったん退出して新しいリンクで再入室します」と事前告知。再入室後、追加Q&Aを受付。希望者のみ残留。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 事前準備チェックリスト -->
+  <div class="card">
+    <div class="card-header"><span class="icon">✅</span>開催前チェックリスト</div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><span class="box"></span>Zoomリンクを発行（開催3日前）</li>
+        <li><span class="box"></span>告知文をLINE・ジモティーに投稿（1週間前）</li>
+        <li><span class="box"></span>スライド（Google Slides）最終確認</li>
+        <li><span class="box"></span>senpai.work サイトの画面共有テスト</li>
+        <li><span class="box"></span>参加者リスト（名前・連絡先）を手元に準備</li>
+        <li><span class="box"></span>チャットに貼るテキスト（URL・LINE ID）を事前コピー</li>
+        <li><span class="box"></span>40分タイマーをセット（Zoom切断対策）</li>
+        <li><span class="box"></span>フォローアップLINEメッセージを下書き保存</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 告知文 LINE/ジモティー -->
+  <div class="card">
+    <div class="card-header"><span class="icon">📢</span>告知文（LINE / ジモティー投稿用）</div>
+    <div class="card-body">
+      <div class="announce-label">▼ そのままコピーして使えます</div>
+      <div class="announce-box">【無料オンライン説明会】
+60〜70代の方へ／業務委託という新しい働き方
+
+━━━━━━━━━━━━━━━
+✅ Senpai.work 無料オンライン説明会
+━━━━━━━━━━━━━━━
+
+「もう少し社会とつながっていたい」
+「でも正社員や週5勤務は難しい」
+
+そんな方のために、「業務委託」という
+自分のペースで働ける仕組みをご紹介します。
+
+▶ こんな案件があります
+・工場や不動産物件の現場視察（¥8,000〜¥25,000）
+・郵便物や書類の受け取り代行（¥5,000〜¥8,000）
+・ビジネス面談の同席・通訳補助（¥25,000〜）
+
+▶ こんな方に向いています
+・60〜75歳の方
+・社会経験・地域の人脈がある方
+・週1〜2件、自分のペースで動ける方
+
+▶ 雇用ではありません
+業務委託契約のため、年金や健康保険への影響なし。
+年間¥200,000以下なら確定申告も不要です。
+
+━━━━━━━━━━━━━━━
+📅 日時：○月○日（土）14:00〜14:45
+💻 形式：Zoom（無料・スマホOK）
+👥 定員：10名（先着順）
+💴 参加費：無料
+━━━━━━━━━━━━━━━
+
+▶ お申し込み・詳細
+senpai.work
+
+または下記LINEにメッセージ：
+「説明会参加希望」とお送りください。
+
+ZoomリンクをLINEでお送りします。
+
+運営：Mement Hong Kong Limited</div>
+    </div>
+  </div>
+
+  <!-- ハローワーク窓口向け告知文 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🏢</span>告知文（ハローワーク65歳以上専門窓口 掲示用）</div>
+    <div class="card-body">
+      <div class="announce-label">▼ 情報提供チラシ設置の際に窓口へ渡す一言メモ</div>
+      <div class="announce-box">【ハローワーク職員の方へ】
+
+このチラシは「求人票」ではありません。
+業務委託（個人事業）という働き方の
+情報提供資料です。
+
+ご来所の65歳以上の方に、
+ご自由にお持ちいただけますよう
+設置のご協力をお願いいたします。
+
+ご不明な点はお気軽にご連絡ください。
+senpai.work
+運営：Mement Hong Kong Limited</div>
+    </div>
+  </div>
+
+  <!-- 参加者フォローアップ -->
+  <div class="card">
+    <div class="card-header"><span class="icon">💬</span>参加者フォローアップ（説明会翌日 LINE送付用）</div>
+    <div class="card-body">
+      <div class="announce-label">▼ パターンA：登録に前向きな方向け</div>
+      <div class="followup-box">○○様
+
+昨日はSenpai.work説明会にご参加いただき、
+ありがとうございました！
+
+ご不明な点はございましたか？
+何でもお気軽にご連絡ください😊
+
+▶ 登録はこちら（3分で完了）
+https://senpai.work
+
+登録後、私からご連絡差し上げます。
+一緒に最初の一歩を踏み出しましょう！
+
+Senpai.work 運営チーム</div>
+
+      <div class="announce-label" style="margin-top:16px;">▼ パターンB：まだ迷っている方向け</div>
+      <div class="followup-box">○○様
+
+昨日の説明会にご参加いただき、
+ありがとうございました。
+
+「もう少し考えたい」という方も歓迎です。
+個別にご質問をお受けしていますので、
+気になることがあればいつでもどうぞ。
+
+また、来月も同じ内容で説明会を開催します。
+ご家族やお知り合いにもご紹介いただけると
+とても嬉しいです。
+
+▶ 詳細・登録：senpai.work
+
+引き続きよろしくお願いいたします。
+Senpai.work 運営チーム</div>
+
+      <div class="announce-label" style="margin-top:16px;">▼ パターンC：紹介者向け（参加者が知人を紹介してくれた場合）</div>
+      <div class="followup-box">○○様
+
+ご紹介いただきありがとうございます！
+△△様にも説明会の情報をお送りしました。
+
+ご紹介いただいた方が初めて案件を
+完了された際には、紹介ボーナスとして
+¥2,000をお振込みします。
+
+引き続きよろしくお願いいたします。
+Senpai.work 運営チーム</div>
+    </div>
+  </div>
+
+  <!-- 運営メモ -->
+  <div class="card">
+    <div class="card-header"><span class="icon">📝</span>運営者メモ（Brianへ）</div>
+    <div class="card-body">
+      <div class="tip">
+        <strong>Zoom無料プランの40分制限：</strong>
+        説明会本体（オープニング〜クロージング）を39分で完結させ、40分時点で意図的に退室・再入室する。「少し不便をおかけします」と笑いに変えてOK。月¥2,200のZoom Proに移行すれば解決。参加者が月5名以上安定したら即切り替え推奨。
+      </div>
+      <div class="tip" style="margin-top:10px;">
+        <strong>ジモティー投稿のコツ：</strong>
+        カテゴリは「その他」→「お知らせ」で投稿。「仕事」カテゴリは雇用と混同されるため避ける。写真は不要。週1回再投稿して上位表示を維持。
+      </div>
+      <div class="tip" style="margin-top:10px;">
+        <strong>LINE公式アカウント連携（将来）：</strong>
+        現状は個人LINEで運営OK。参加者が30名を超えたらLINE公式アカウント（月¥1,500〜）へ移行して一斉送信機能を使う。
+      </div>
+      <div class="tip" style="margin-top:10px;">
+        <strong>スライド資料：</strong>
+        Google SlidesでA4横向き10枚以内に収める。フォントは「Noto Sans JP」18pt以上。スクリーンショットを多用してサイトのリアル感を出す。
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
